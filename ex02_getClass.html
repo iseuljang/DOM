@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM 객체 찾기</title>
+</head>
+<body>
+    <p class="myP">문단입니다</p>
+    <p class="myClass">두번째 문단입니다</p>
+    <p>세번째 문단입니다</p>
+    <span class="mySpan">span입니다</span>
+    <span class="myClass">span입니다</span>
+    <div class="myDiv">div입니다</div>
+    <div class="myClass">div입니다</div>
+    <script>
+        //
+        let items = document.getElementsByClassName("myClass");
+        console.log(items);
+        console.log(items.length);
+        if(items.length != 0){
+            for(let tmp of items){
+                console.log(tmp);
+            }
+        }
+        items = document.getElementsByClassName("myP");
+        console.log(items);
+        items = document.getElementsByClassName("myTable"); 
+        console.log(items); //length 0
+    </script>
+</body>
+</html>

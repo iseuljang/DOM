@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM 객체 찾기</title>
+</head>
+<body>
+    <p id="title">제목</p>
+    <p id="contents">내용1</p>
+    <p id="author">홍길동</p>
+    <!-- id는 유일하게 작성해야 합니다 -->
+    <!-- 중복되었을때에 탐색 결과를 위해 중복시킴 -->
+    <p id="contents">내용2</p>
+    <script>
+        //못찾으면 null이 나옴
+        let result = document.getElementById("title");
+        if(result != null){
+            console.log(result);
+        }
+        //출력되는것 없음
+        result = document.getElementById("date");
+        if(result != null){
+            console.log(result);
+        }
+        //가장 먼저 찾은 아이디만 반환하고 이후는 탐색 안함
+        //내용1만 출력됨
+        result = document.getElementById("contents");
+        if(result != null){
+            console.log(result);
+        }
+    </script>
+</body>
+</html>

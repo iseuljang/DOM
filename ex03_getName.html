@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM 객체 찾기</title>
+</head>
+<body>
+    <p name="title">제목</p>
+    <p name="contents">내용</p>
+    <p name="author">홍길동</p>
+    <script>
+        let items = document.getElementsByName("title");
+        console.log(items);
+        console.log(items.length);
+        if(items.length != 0){
+            for(let tmp of items){
+                console.log(tmp);
+            }
+        }
+    </script>
+</body>
+</html>
