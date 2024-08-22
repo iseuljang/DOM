@@ -98,7 +98,8 @@
 <body>
     <!-- 입력 폼으로부터 커서가 나갈때 checkOnBlur() 함수 호출 -->
     <input type="text" name="numX" id="x" onblur="checkOnBlur(this);">
-    <select name="op" id="op">
+    <!-- 입력 폼의 value의 값이 변경될 때에 DoCal() 호출 -->
+    <select name="op" id="op" onchange="DoCal();">
         <option value="+">+</option>
         <option value="-">-</option>
         <option value="*">*</option>
