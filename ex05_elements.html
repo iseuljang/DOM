@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM 객체의 속성</title>
+</head>
+<body>
+    <div id="myId" class="myClass" name="MyDiv" lang="ko" style="color: royalblue; background-color: rgb(200, 210, 243);">
+        이것은 
+        <span style="color: #eea3a5;">문장입니다</span>
+    </div>
+    <!-- 객체를 찾기 : div 태그 -->
+    <script>
+        let item = document.getElementById("myId");
+        console.log(item);
+        let obj = document.getElementsByTagName("div")[0];
+        console.log("찾은 객체 : \n", obj);
+        //개체의 속성을 출력
+        console.log("태그 이름:",obj.tagName); //DIV
+        console.log("id:",obj.id); //myId
+        console.log("class:",obj.className); //MyClass
+        console.log("localName:",obj.localName); //div
+        console.log("getAttribute('name'):\n",obj.getAttribute("name")); //MyDiv
+        console.log("getAttribute('lang'):\n",obj.getAttribute("lang")); //ko
+        console.log("lang:\n",obj.lang); //ko
+        console.log("※문서의 lang : \n",document.documentElement.lang); //en
+        //하위 요소
+        console.log("innerText:\n",obj.innerText); //이것은 문장입니다
+        //자신의 문자열과 자식의 문자열을 모두 반환
+        console.log("innerHTML:\n",obj.innerHTML);
+        /* Html 태그를 포함한 하위 노드 전부
+                이것은 
+                <span style="color: #eea3a5;">문장입니다</span>
+        */
+        //css style 속성값
+        //인라인 css 속성만 가져올 수 있습니다
+        console.log("style color:\n",obj.style.color); // royalblue
+        console.log("style color:\n",obj.style.backgroundColor); // rgb(200, 210, 243)
+        console.log("style color:\n",obj.style); //css 속성 전부 가져옴
+        //속성값을 변경
+        obj.innerText = "바뀐 문자열";
+        //기존내용을 대체함
+        obj.innerText = "2024-08-22";
+        //innerText로 입력하면 html 태그도 문자열로 처리됨.style  안먹음
+        obj.innerText = "바뀐 문자열<span style='color:green;'>html 태그</span>";
+        //하위 요소에 html 태그를 적용하려면 innerHTML 속성을 이용
+        obj.innerHTML = "바뀐 문자열<span style='color:green;'>html 태그</span>";
+        //css 속성 변경하기
+        obj.style.color = 'red';
+        obj.style.backgroundColor = '#C8EBFA';
+        obj.style.border = '2px solid royalblue';
+        obj.style.borderRadius = '5px';
+        //값 없애기
+        obj.style.border = ''; //빈칸을 넣으면 적용되는 속성을 제거
+        //1~4까지 받을 수 있음
+        //4개 위, 우 ,아래, 좌(시계방향)
+        //3개 위, 좌우, 아래 : 위, 우, 아래, x(오른쪽과 같게 왼쪽 적용)
+        //2개 위아래, 좌우 : 위, 우 , x(위와 같게 적용), x(오른쪽과 같게 적용)
+        //1개 4방향 모두
+        obj.style.borderColor = "royalblue #98E0AD #FFE5D4 #E7B9C0";
+        obj.style.borderWidth = "2px 3px 5px 7px";
+        obj.style.borderStyle = "dashed solid dotted";
+        //방향별 테두리 속성
+        obj.style.border = '';
+        obj.style.borderTop = "3px solid royalblue";
+        //클래스 값 변경
+        obj.className = "changeClass";
+        console.log("클래스:",obj.className); //changeClass
+        console.log("객체:",obj);
+        //최종적으로 계산된 css 받아오기
+        let css = window.getComputedStyle(obj);
+        console.log(css.color);
+        console.log(css.backgroundColor);
+        console.log(css);
+    </script>
+</body>
+</html>

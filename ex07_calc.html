@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>자바스크립트 계산기</title>
+    <style>
+        input, select{
+            outline: none;
+            border: none;
+            width: 50px;
+            height: 25px;
+            border-radius: 5px;
+            background-color: rgb(205, 215, 247);
+            color: rgb(34, 67, 167);
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+        }
+        input:focus{
+            background-color: rgb(150, 176, 248);
+            border: none;
+            border-bottom: 3px solid royalblue;
+            color: rgb(34, 67, 167);
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            //문서가 로드되면, 첫번째 입력 폼에 커서를 이동
+            let x = document.getElementById("x");
+            x.focus(); 
+        }
+        //입력 폼에서 커서가 나갈때 입력된 값을 검사할 함수
+        function checkOnBlur(obj){
+            //alert("call");
+            console.log(obj);
+            let val = obj.value; //입력된 값
+            //1.빈칸(입력하지 않음)일 경우
+            if(val == ""){
+                //이벤트가 일어난 입력 폼으로 포커스를 되돌림
+                obj.focus();
+                return;
+            }
+            //2.숫자가 아닌 경우
+            //if(isNaN(parseInt(val.trim().replace(",","")))){
+            if(isNaN(parseInt(val))){
+                //입력된 값을 지우고 포커스를 되돌림
+                obj.value = "";
+                obj.focus();
+                return;
+            }
+        }
+        function DoCal(){
+            //x, y, op 객체를 찾음
+            let objX = document.getElementById("x");
+            let objY = document.getElementById("y");
+            let objOp = document.getElementById("op");
+            //입력값 여부 확인
+            if(checkValue(objX,objY) != true){
+                //입력값중 하나라도 없으므로 DoCal을 종료
+                return;
+            }
+            //입력값을 정수로 바꿈
+            let numX = parseInt(objX.value);
+            let numY = parseInt(objY.value);
+            //op에 따라 연산을 수행
+            let cal = 0;
+            switch(objOp.value){
+                case "+" : cal = numX + numY; break;
+                case "-" : cal = numX - numY; break;
+                case "*" : cal = numX * numY; break;
+                case "/" : 
+                    if(numY != 0){
+                        cal = numX / numY; break;
+                    }else{
+                        alert("0으로는 나눌수없습니다."); break;
+                    }
+            }
+            //연산 결과를 result 객체를 찾아 value를 변경함
+            document.getElementById("result").value = cal;
+        }
+        function checkValue(objX,objY){
+            //객체에 입력값이 있는지 확인
+            if(objX.value == ""){
+                objX.focus();
+                return false;
+            }
+            if(objY.value == ""){
+                objY.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <!-- 입력 폼으로부터 커서가 나갈때 checkOnBlur() 함수 호출 -->
+    <input type="text" name="numX" id="x" onblur="checkOnBlur(this);">
+    <select name="op" id="op">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+    <input type="text" name="numY" id="y" onblur="checkOnBlur(this);">
+    <!-- onclick :: 버튼이 클릭되었을 때 DoCal() 함수를 실행해주세요 -->
+    <input type="button" value="=" onclick="DoCal();"><br><br>
+    <input type="text" id="result" style="width: 65px;" readonly>
+</body>
+</html>

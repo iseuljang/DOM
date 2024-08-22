@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>자바스크립트 계산기</title>
+    <style>
+        input, select{
+            outline: none;
+            border: none;
+            width: 50px;
+            height: 25px;
+            border-radius: 5px;
+            background-color: rgb(205, 215, 247);
+            color: rgb(34, 67, 167);
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+        }
+        input:focus{
+            background-color: rgb(150, 176, 248);
+            border: none;
+            border-bottom: 3px solid royalblue;
+            color: rgb(34, 67, 167);
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            console.log("문서가 로딩되었습니다.");
+            let x = document.getElementById("x");
+            console.log(x);
+            x.focus(); //객체로 커서를 이동
+            //input 태그에 입력된 값 -> value 속성의 값
+            console.log(x.value);
+        }
+        function DoCal(){
+            //alert("함수가 호출되었습니다");
+            //x, y, op 객체를 찾음
+            let objX = document.getElementById("x");
+            let objY = document.getElementById("y");
+            let selectedOp = document.getElementById("op");
+            //console.log(objX,objY,selectedOp);
+            //x, y, op 의 값을 가져옴
+            let numX = parseInt(objX.value);
+            let numY = parseInt(objY.value);
+            console.log(numX,numY,selectedOp.value);
+            //x, y, op 의 값의 유효성 체크
+            if(isNaN(numX) || isNaN(numY)){
+                alert("숫자가 아닙니다.\nnumX: "+ objX.value+", numY: "+objY.value);
+                return;
+            }
+            //op에 따라 연산을 수행
+            let cal = 0;
+            switch(selectedOp.value){
+                case "+" : cal = numX + numY; break;
+                case "-" : cal = numX - numY; break;
+                case "*" : cal = numX * numY; break;
+                case "/" : 
+                    if(numY != 0){
+                        cal = numX / numY; break;
+                    }else{
+                        alert("0으로는 나눌수없습니다."); break;
+                    }
+            }
+            //연산 결과를 result 객체를 찾아 value를 변경함
+            document.getElementById("result").value = cal;
+        }
+    </script>
+</head>
+<body>
+    <input type="text" name="numX" id="x">
+    <select name="op" id="op">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+    <input type="text" name="numY" id="y">
+    <!-- onclick :: 버튼이 클릭되었을 때 DoCal() 함수를 실행해주세요 -->
+    <input type="button" value="=" onclick="DoCal();"><br><br>
+    <input type="text" id="result" style="width: 65px;" readonly>
+</body>
+</html>
