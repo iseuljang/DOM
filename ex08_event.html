@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>객체의 속성 변경하기</title>
+    <style>
+        button{
+            border: 2px solid royalblue;
+            color: royalblue;
+            font-weight: bold;
+            background-color: white;
+            border-radius: 5px;
+            width: 100px;
+            height: 35px;
+        }
+        button:hover{
+            background-color: royalblue;
+            color: white;
+        }
+    </style>
+    <script>
+        function DoChange(){
+            //class가 msg인 객체를 찾아서
+            let item = document.getElementsByClassName("msg")[0];
+            //문단 영역입니다를 변경된 문자열입니다로 변경하는 내용을 작성
+            item.innerHTML = '변경된 문자열입니다';
+            item.style.backgroundColor = '#C9CAE2';
+            item.style.color = '#232B99';
+            item.style.fontWeight = 'bold';
+        }
+    </script>
+</head>
+<body>
+    <!-- head 영역에 선언되어있는 함수이지만, 버튼을 클릭해야 호출되기에 msg 객체를 잘 찾음 -->
+    <button onclick="DoChange();">내용 변경</button><br>
+    <p class="msg">문단 영역입니다</p>
+    <hr>
+    <script>
+        function makeList(){
+            let list = document.getElementById("listArea");
+            let item1 = 'java';
+            let item2 = 'HTML';
+            // 백틱(`)을 사용한 탬플릿 리터럴 -> 데이터 바인딩
+            list.innerHTML = `
+                <ul>
+                    <li>${item1}</li>
+                    <li>${item2}</li>
+                </ul>
+            `;
+        }
+    </script>
+    <button onclick="makeList();">리스트 생성</button><br>
+    <p id="listArea" style="background-color: rgb(192, 212, 241); 
+    color: #232B99; font-weight: bold;">
+        새로운 문단 영역입니다
+    </p>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AWS 풀스택 학습 게시판</title>
+    <style>
+        .menu{
+            background-color: #ccd2ee;
+            height: 30px;
+            margin: 5px;
+            /* text-align: center; */
+            /* div text 가운데 정렬 */
+            display: flex;
+            /* flexbox의 기본값은 row */
+            /* align-items 의 정렬 방향은 수직선이 됩니다 */
+            /* align-items: center; => 수직방향의 중앙 */
+            align-items: center;
+            /* justify-content의 정렬 방향은 주축의 수직 교차측 */
+            /* row 설정에서는 수평방향이 됩니다 */
+            justify-content: center;
+            color: rgb(53, 85, 180);
+            font-weight: bold;
+        }
+        .menu:hover{
+            background-color: rgb(53, 85, 180);
+            color: white;
+            font-weight: bold;
+            cursor:pointer; 
+        }
+        span{
+            color: red;
+        }
+        table{
+            background-color: white;
+            border: 2px solid #ccd2ee;
+            border-radius: 10px;
+        }
+        #inTable{
+            border: 2px dashed #ccd2ee;
+            border-radius: 10px;
+        }
+        /*
+        #inTable td{
+            border: 1px solid #ceceee;
+        }
+        */
+        #login, #reset{
+            background-color: #ccd2ee;
+            color: rgb(53, 85, 180);
+            font-weight: bold;
+            border: 0;
+            height: 30px;
+            border-radius: 5px;
+            margin: 3px;
+        }
+        #login:hover, #reset:hover{
+            background-color: rgb(53, 85, 180);
+            color: white;
+            font-weight: bold;
+            cursor:pointer;
+        }
+        #jBtn, #lBtn{
+            background-color: #ccd2ee;
+            color: rgb(53, 85, 180);
+            font-weight: bold;
+            border: 0;
+            height: 30px;
+            border-radius: 5px;
+            margin: 3px;
+            cursor:pointer;
+        }
+        #jBtn:hover, #lBtn:hover{
+            background-color: rgb(53, 85, 180);
+            color: white;
+            font-weight: bold;
+            cursor:pointer;
+        }
+        input{
+            height: 25px;
+            border: 0;
+            border-radius: 5px;
+            outline: none;
+            background-color: #ccd2ee;
+            color: royalblue;
+        }
+        input:focus{
+            font-weight: bold;
+            color: royalblue;
+        }
+        input[type="text"], input[type="password"], input[type="email"]{
+            width: 99%;
+        }
+        hr {
+            background:#ccd2ee;
+            height:2px;
+            border:0;
+        }
+        #vParent{
+            /* display: flex; */
+        }
+        #vr {
+            border-right : solid #ccd2ee;
+            height : 300px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        //문서가 로드되면 아이디 입력창으로 커서 이동
+        window.onload = function(){
+            /*
+            let userId = document.getElementById("uid");
+            userId.focus();
+            */
+            document.getElementById("uid").focus();
+        }
+        function DoLogin(){
+            // alert("login call");
+            // 1.아이디가 입력되어 있는지 확인
+            let obj = document.getElementById("uid");
+            //메세지를 입력할 객체를 찾음
+            let msg = document.getElementById("msgBox");
+            // 1-1.입력되어 있지 않으면 사용자에게 알리고 id입력창으로 커서 이동
+            if(obj.value == ""){
+                //메세지 박스에 메세지를 출력
+                msg.innerHTML = "아이디를 입력해주세요";
+                obj.focus();
+                // submit 중단
+                return false;
+            }else{
+                if(obj.value.length < 4){ //입력값이 4글자가 안됨
+                    msg.innerHTML = "아이디는 4글자 이상 입력해주세요";
+                    obj.focus();
+                    // submit 중단
+                    return false;
+                }
+            }
+            // 1-2.입력되어 있으면 비밀번호 체크
+            let obj2 = document.getElementById("upw");
+            // 2.비밀번호가 입력되어 있는지 확인. 입력되어 있지 않으면 알리고, 이동
+            if(obj2.value == ""){
+                //메세지 박스에 메세지를 출력
+                msg.innerHTML = "비밀번호를 입력해주세요";
+                // msg.style.color = "red";
+                /*
+                setAttribute("속성이름","속성값");
+                setAttribute()를 이용해서 인라인 스타일 지정이 가능
+                */
+                // msg.setAttribute("style","color:red; font-weight: bold;");
+                obj2.focus();
+                return false;
+            }else{
+                if(obj2.value.length < 4){ //입력값이 4글자가 안됨
+                    msg.innerHTML = "비밀번호는 4글자 이상 입력해주세요";
+                    obj2.focus();
+                    // submit 중단
+                    return false;
+                }
+            }
+            // 2-1.입력되어 있으면 submit 진행
+            return true;
+        }
+        function DoReset(){
+            // alert("reset call");
+            let msg = document.getElementById("msgBox");
+            msg.innerHTML = "";
+        }
+    </script>
+</head>
+<body style="background-color: #EDEDF1;">
+    <table width="800px" style="margin: auto;">
+        <tr>
+            <td colspan="2">
+                <!-- 헤더부분 시작 -->
+                <table style="border: none;" width="100%">
+                    <tr>
+                        <td style="color: royalblue;">
+                            <h2>AWS 풀스택 학습 커뮤니티</h2>
+                        </td>
+                        <td style="text-align: right;">
+                            <a href="join.html"><button id="jBtn">회원가입</button></a>
+                            <a href="login.html"><button id="lBtn">로그인</button></a>
+                        </td>
+                    </tr>
+                </table>
+                <!-- 헤더부분 종료 -->
+                <hr>
+            </td>
+        </tr>
+        <tr>
+            <td width="30%" style="vertical-align: top;">
+                <div id="vParent">
+                    <!-- 세로줄 -->
+                    <div id="vr">
+                        <!-- 메뉴부분 -->
+                        <div class="menu">Java 학습게시판</div>
+                        <div class="menu">HTML/CSS 학습게시판</div>
+                        <div class="menu">JavaScript 학습게시판</div>
+                        <div class="menu">Jquery 학습게시판</div>
+                        <div class="menu">JSP 학습게시판</div>
+                        <div class="menu">DBMS 학습게시판</div>
+                        <div class="menu">Spring 학습게시판</div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <!-- 내용 부분 -->
+                <!-- 게시판 머리 시작 -->
+                <table id="inTable" width="100%">
+                    <tr>
+                        <!-- 선택된 게시판 이름 -->
+                        <td style="color: royalblue;"><h3>&nbsp;※ 로그인</h3></td>
+                    </tr>
+                    <!-- 게시판 머리 종료 -->
+                    <tr>
+                        <td>
+                            <!-- 게시판 몸통 시작 -->
+                            <!-- submit, reset은 form의 이벤트 -->
+                            <form method="post" action="loginOk.html" onsubmit="return DoLogin();" onreset="DoReset();">
+                                <table style="border: none;" width="100%">
+                                    <tr>
+                                        <td style="width: 120px; text-align: center; color: royalblue; font-weight: bold;">아이디 (*)</td>
+                                        <td>
+                                            <input type="text" name="uid" id="uid" size="40%" onkeydown="DoReset();" style="height: 30px;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center; color: royalblue; font-weight: bold;">비밀번호 (*)</td>
+                                        <td>
+                                            <input type="password" name="upw" id="upw" size="40%" onkeydown="DoReset();" style="height: 30px;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align: center; height: 1.5rem; text-align: center; color: red; font-weight: bold;">
+                                            <span id="msgBox"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align: center;">
+                                            <!-- 버튼에 onclick 이벤트로 호출된 함수는 
+                                                submit과 reset에 영향을 미치지 못함
+                                                onclick 이벤트 종료 후 , submit과 reset 이벤트가
+                                                발생되어 처리됨
+                                                submit과 reset 은 form의 이벤트
+                                            -->
+                                            <!-- <input type="submit" id="login" onclick="DoLogin();" value="로그인하기">
+                                            <input type="reset" id="reset" value="취소하기" onclick="DoReset();"> -->
+                                            <input type="submit" id="login" value="로그인하기">
+                                            <input type="reset" id="reset" value="취소하기">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                            <!-- 게시판 몸통 종료 -->
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: right; color: royalblue; font-weight: bold;">
+                Copyright by XXXX All rights reserved &nbsp;
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

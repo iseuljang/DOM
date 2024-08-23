@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AWS 풀스택 학습 게시판</title>
+    <style>
+        .menu{
+            background-color: #ccd2ee;
+            height: 30px;
+            margin: 5px;
+            /* text-align: center; */
+            /* div text 가운데 정렬 */
+            display: flex;
+            /* flexbox의 기본값은 row */
+            /* align-items 의 정렬 방향은 수직선이 됩니다 */
+            /* align-items: center; => 수직방향의 중앙 */
+            align-items: center;
+            /* justify-content의 정렬 방향은 주축의 수직 교차측 */
+            /* row 설정에서는 수평방향이 됩니다 */
+            justify-content: center;
+            color: rgb(53, 85, 180);
+            font-weight: bold;
+        }
+        .menu:hover{
+            background-color: rgb(53, 85, 180);
+            color: white;
+            font-weight: bold;
+            cursor:pointer; 
+        }
+        span{
+            color: red;
+        }
+        table{
+            background-color: white;
+            border: 1px solid #ccd2ee;
+        }
+        #inTable td{
+            border: 1px solid #ceceee;
+        }
+        #join, #reset{
+            background-color: #ccd2ee;
+            color: rgb(53, 85, 180);
+            font-weight: bold;
+            border: 0;
+            height: 30px;
+            border-radius: 5px;
+            margin: 3px;
+        }
+        #join:hover, #reset:hover{
+            background-color: rgb(53, 85, 180);
+            color: white;
+            font-weight: bold;
+            cursor:pointer;
+        }
+        input{
+            height: 25px;
+            border: 0;
+            border-radius: 5px;
+            outline: none;
+            background-color: #ccd2ee;
+            color: royalblue;
+        }
+        input:focus{
+            font-weight: bold;
+            color: royalblue;
+        }
+        input[type="text"], input[type="password"], input[type="email"], input[type="number"]{
+            width: 99%;
+        }
+        /* date 타입 변경 */
+        input[type="date"]{
+            position: relative;
+            width: 40%;
+            color: royalblue;
+            font-weight: bold;
+            text-align: center;
+        }
+        input[type='date']::-webkit-calendar-picker-indicator {
+            position: absolute; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            /* 배경은 투명하게 */
+            background: transparent; 
+            /* 글자도 투명하게 이 두 설정을 통해 캘린더 아이콘을 사라지게 만든다 */
+            color: transparent; 
+            cursor: pointer;
+        }
+        /* 회원가입,로그인 모양변경 */
+        #jBtn, #lBtn{
+            background-color: #ccd2ee;
+            color: rgb(53, 85, 180);
+            font-weight: bold;
+            border: 0;
+            height: 30px;
+            border-radius: 5px;
+            margin: 3px;
+            cursor:pointer;
+        }
+        #jBtn:hover, #lBtn:hover{
+            background-color: rgb(53, 85, 180);
+            color: white;
+            font-weight: bold;
+            cursor:pointer;
+        }
+        /* radio 모양변경 */
+        .gender {
+            padding: 5px;
+        }
+        .gender input[type=radio]{
+            display: none;
+        }
+        .gender input[type=radio]+label{
+            display: inline-block;
+            cursor: pointer;
+            height: 24px;
+            width: 50px;
+            border: 1px solid rgb(53, 85, 180);
+            border-radius: 5px;
+            line-height: 24px;
+            text-align: center;
+            font-weight:bold;
+            font-size:13px;
+        }
+        .gender input[type=radio]+label{
+            background-color: white;
+            color: rgb(53, 85, 180);
+        }
+        .gender input[type=radio]:checked+label{
+            background-color: rgb(53, 85, 180);
+            color: white;
+        }
+        /* checkbox 모양변경 */
+        .interest {
+            padding: 6px;
+        }
+        .interest input[type=checkbox]{
+            display: none;
+        }
+        .interest input[type=checkbox]+label{
+            display: inline-block;
+            cursor: pointer;
+            height: 24px;
+            width: 80px;
+            border: 1px solid rgb(53, 85, 180);
+            border-radius: 5px;
+            line-height: 24px;
+            text-align: center;
+            font-weight:bold;
+            font-size:13px;
+        }
+        .interest input[type=checkbox]+label{
+            background-color: white;
+            color: rgb(53, 85, 180);
+        }
+        .interest input[type=checkbox]:checked+label{
+            background-color: rgb(53, 85, 180);
+            color: white;
+        }
+        /* select 모양변경 */
+        select {
+            -webkit-appearance: none;  /* 크롬 화살표 없애기 */
+            -moz-appearance: none; /* 파이어폭스 화살표 없애기 */
+            appearance: none;  /* 화살표 없애기 */
+            display: inline-block;
+            border: 1px solid rgb(53, 85, 180);
+            border-radius: 5px;
+            width: 30%;
+            height: 24px;
+            text-align: center;
+            outline: none;
+        }
+        #hobby {
+            color: rgb(53, 85, 180);
+            font-size: 15px;
+            font-style: normal;
+            font-weight: bold;
+            line-height: 100%;
+        }
+    </style>
+</head>
+<body style="background-color: #EDEDF1;">
+    <table width="800px" style="margin: auto;">
+        <tr>
+            <td colspan="2">
+                <!-- 헤더부분 시작 -->
+                <table width="100%">
+                    <tr>
+                        <td style="color: royalblue;">
+                            <h2>AWS 풀스택 학습 커뮤니티</h2>
+                        </td>
+                        <td style="text-align: right;">
+                            <a href="join.html"><button id="jBtn">회원가입</button></a>
+                            <a href="login.html"><button id="lBtn">로그인</button></a>
+                        </td>
+                    </tr>
+                </table>
+                <!-- 헤더부분 종료 -->
+            </td>
+        </tr>
+        <tr>
+            <td width="30%" style="vertical-align: top;">
+                <!-- 메뉴부분 -->
+                <div class="menu">Java 학습게시판</div>
+                <div class="menu">HTML/CSS 학습게시판</div>
+                <div class="menu">JavaScript 학습게시판</div>
+                <div class="menu">Jquery 학습게시판</div>
+                <div class="menu">JSP 학습게시판</div>
+                <div class="menu">DBMS 학습게시판</div>
+                <div class="menu">Spring 학습게시판</div>
+            </td>
+            <td>
+                <!-- 내용 부분 -->
+                <!-- 게시판 머리 시작 -->
+                <table width="100%">
+                    <tr>
+                        <!-- 선택된 게시판 이름 -->
+                        <td style="color: royalblue;"><h3>※ 회원가입</h3></td>
+                    </tr>
+                    <!-- 게시판 머리 종료 -->
+                    <tr>
+                        <td>
+                            <!-- 게시판 몸통 시작 -->
+                            <form method="post" action="joinOk.html">
+                                <table id="inTable" width="100%">
+                                    <tr>
+                                        <td style="text-align: center;">아이디 (*)</td>
+                                        <td>
+                                            <input type="text" name="uid" id="uid" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">비밀번호 (*)</td>
+                                        <td>
+                                            <input type="password" name="upw" id="upw" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">비밀번호 확인 (*)</td>
+                                        <td>
+                                            <input type="password" name="upwcheck" id="upwcheck" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">이름 (*)</td>
+                                        <td>
+                                            <input type="text" name="uname" id="uname" required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">나이</td>
+                                        <td>
+                                            <input type="number" name="uage" id="uage" min="0">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">이메일 (*)</td>
+                                        <td><input type="email" name="email" id="email" required></td>
+                                    </tr>
+                                    <tr>
+                                        <!-- 하나의 값만 선택하게 할 때는 라디오 버튼 사용 -->
+                                        <td style="text-align: center;">성별</td>
+                                        <td>
+                                            <div class="gender">
+                                                <input type="radio" name="genger" value="M" id="M"><label for="M">남자</label>
+                                                <input type="radio" name="genger" value="F" id="F"><label for="F">여자</label>
+                                                <input type="radio" name="genger" value="N" id="N" checked><label for="N">비공개</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">생일</td>
+                                        <td>
+                                            <input type="date" name="birth" placeholder="날짜를 선택해주세요">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">취미</td>
+                                        <td>
+                                            <select name="hobby" id="hobby">
+                                                <option value="1">낚시</option>
+                                                <option value="2">유튜브</option>
+                                                <option value="3">조깅</option>
+                                                <option value="4">게임</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center;">관심분야</td>
+                                        <td>
+                                            <div class="interest">
+                                                <input type="checkbox" name="interest" value="1" id="i1"><label for="i1">웹디자인</label>
+                                                <input type="checkbox" name="interest" value="2" id="i2"><label for="i2">프론트엔드</label>
+                                                <input type="checkbox" name="interest" value="3" id="i3"><label for="i3">백엔드</label><br><br>
+                                                <input type="checkbox" name="interest" value="4" id="i4"><label for="i4">데이터베이스</label>
+                                                <input type="checkbox" name="interest" value="5" id="i5"><label for="i5">데브옵스</label>
+                                                <input type="checkbox" name="interest" value="6" id="i6"><label for="i6">기획</label>
+                                                <input type="checkbox" name="interest" value="7" id="i7"><label for="i7">운영</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align: center;">
+                                            <!-- <input type="submit" id="login" value="로그인하기"> -->
+                                            <button type="submit" id="join">가입완료</button>
+                                            <input type="reset" id="reset" value="취소">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                            <!-- 게시판 몸통 종료 -->
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: right; color: royalblue; font-weight: bold;">
+                Copyright by XXXX All rights reserved
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
