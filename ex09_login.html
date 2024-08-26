@@ -100,11 +100,11 @@
             display: flex;
         }
         */
-        #vr {
+        /* #vr {
             border-right : solid #ccd2ee;
             height : 300px;
             text-align: center;
-        }
+        } */
     </style>
     <script>
         //문서가 로드되면 아이디 입력창으로 커서 이동
@@ -190,9 +190,9 @@
         </tr>
         <tr>
             <td width="30%" style="vertical-align: top;">
-                <div id="vParent">
-                    <!-- 세로줄 -->
-                    <div id="vr">
+                <!-- 세로줄 -->
+                <!-- <div id="vParent">
+                    <div id="vr"> -->
                         <!-- 메뉴부분 -->
                         <div class="menu">Java 학습게시판</div>
                         <div class="menu">HTML/CSS 학습게시판</div>
@@ -201,8 +201,8 @@
                         <div class="menu">JSP 학습게시판</div>
                         <div class="menu">DBMS 학습게시판</div>
                         <div class="menu">Spring 학습게시판</div>
-                    </div>
-                </div>
+                    <!-- </div>
+                </div> -->
             </td>
             <td>
                 <!-- 내용 부분 -->
@@ -220,13 +220,13 @@
                             <form method="post" action="loginOk.html" onsubmit="return DoLogin();" onreset="DoReset();">
                                 <table style="border: none;" width="100%">
                                     <tr>
-                                        <td style="width: 120px; text-align: center; color: royalblue; font-weight: bold;">아이디 (*)</td>
+                                        <td style="width: 120px; text-align: center; color: royalblue; font-weight: bold;">아이디</td>
                                         <td>
                                             <input type="text" name="uid" id="uid" size="40%" onkeydown="DoReset();" style="height: 30px;">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="text-align: center; color: royalblue; font-weight: bold;">비밀번호 (*)</td>
+                                        <td style="text-align: center; color: royalblue; font-weight: bold;">비밀번호</td>
                                         <td>
                                             <input type="password" name="upw" id="upw" size="40%" onkeydown="DoReset();" style="height: 30px;">
                                         </td>

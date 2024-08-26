@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>계산기</title>
+    <style>
+        body{
+            background-color: #EDEDF1;
+        }
+        input[type="button"]{
+            border: none;
+            background-color: rgb(216, 223, 245);
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            height: 100%;
+            font-size: 1.5rem;
+            color: rgb(53, 85, 180);
+        }
+        input[type="text"]{
+            background-color: rgb(216, 223, 245);
+            width: 50px;
+            border: none;
+            /* font-size: 15px; */
+            font-size: 1.5rem;
+            text-align: center;
+            outline: none;
+            font-weight: bold;
+            width: 95%;
+            height: 95%;
+            color: rgb(53, 85, 180);
+        }
+        input:hover{
+            background-color: rgb(53, 85, 180);
+            color: white;
+            cursor:pointer; 
+            border-radius: 5px;
+        }
+        td{
+            border: 2px solid royalblue;
+            border-radius: 5px;
+            width: 3rem;
+            height: 3rem;
+            vertical-align: middle;
+            box-shadow: 2px 2px 3px gray;
+        }
+        td:hover{
+            box-shadow: none;
+            border: none;
+        }
+        table{
+            border: 2px dashed royalblue;
+            text-align: center;
+            background-color: rgb(216, 223, 245);
+            /* border-collapse:collapse; */
+            width: 350px; 
+            margin: auto;
+            border-spacing: 0.5rem;
+            border-radius: 15px;
+            /* x축 거리, y축 거리, 그림자 크기, 그림자 색상 */
+            box-shadow: 2px 2px 3px gray;
+        }
+        #msgbox{
+            text-align: right;
+            color: rgb(53, 85, 180);
+        }
+        #msgbox:hover{
+            color: white;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            let msgBox = document.getElementById("msgbox");
+            console.log("문서로드");
+            //모든 버튼을 찾음
+            let btnList = document.getElementsByTagName("input");
+            console.log(btnList);
+            //버튼을 눌렀을때 이벤트 일괄 적용
+            // btnList.array.forEach(element => {
+                
+            // });
+            for(let item of btnList){
+                //객체.이벤트 = 함수(){}
+                item.onmousedown = function(){
+                    //숫자면 실행
+                    if(!isNaN(parseInt(item.value))){
+                        msgBox.value += item.value;
+                    }
+                    //AC면 실행
+                    if(item.value == "AC"){
+                        clearMsg();
+                    }
+                    //
+                    if(item.value == "="){
+                        DoCal();
+                    }
+                    console.log(item.value);
+                }
+            }
+            //각각의 버튼이 눌렸을때 해야할 내용을 작성
+        }
+        function clearMsg(){
+            // alert("call");
+            let msgBox = document.getElementById("msgbox");
+            console.log(msgBox);
+            msgBox.value = "";
+        }
+        function DoCal(){
+            //x, y, op 객체를 찾음
+            let objX = document.getElementById("x");
+            let objY = document.getElementById("y");
+            let objOp = document.getElementById("op");
+            //입력값 여부 확인
+            if(checkValue(objX,objY) != true){
+                //입력값중 하나라도 없으므로 DoCal을 종료
+                return;
+            }
+            //입력값을 정수로 바꿈
+            let numX = parseInt(objX.value);
+            let numY = parseInt(objY.value);
+            //op에 따라 연산을 수행
+            let cal = 0;
+            switch(objOp.value){
+                case "+" : cal = numX + numY; break;
+                case "-" : cal = numX - numY; break;
+                case "*" : cal = numX * numY; break;
+                case "/" : 
+                    if(numY != 0){
+                        cal = numX / numY; break;
+                    }else{
+                        alert("0으로는 나눌수없습니다."); break;
+                    }
+            }
+            //연산 결과를 result 객체를 찾아 value를 변경함
+            document.getElementById("result").value = cal;
+        }
+    </script>
+</head>
+<body>
+    <form>
+        <table>
+            <tr>
+                <td colspan="4">
+                    <input type="text" name="result" id="msgbox">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" value="AC" onclick="clearMsg();" readonly>
+                </td>
+                <td><input type="text" value="±" readonly></td>
+                <td><input type="text" value="%" readonly></td>
+                <td><input type="text" value="÷" readonly></td>
+            </tr>
+            <tr>
+                <td><input type="text" value="7" readonly></td>
+                <td><input type="text" value="8" readonly></td>
+                <td><input type="text" value="9" readonly></td>
+                <td><input type="text" value="x" readonly></td>
+            </tr>
+            <tr>
+                <td><input type="text" value="4" readonly></td>
+                <td><input type="text" value="5" readonly></td>
+                <td><input type="text" value="6" readonly></td>
+                <td><input type="text" value="-" readonly></td>
+            </tr>
+            <tr>
+                <td><input type="text" value="1" readonly></td>
+                <td><input type="text" value="2" readonly></td>
+                <td><input type="text" value="3" readonly></td>
+                <td><input type="text" value="+" readonly></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="text" value="0" readonly></td>
+                <td><input type="text" value="." readonly></td>
+                <td>
+                    <input type="button" value="=" onclick="DoCal();">
+                </td>
+            </tr>
+        </table>    
+    </form>
+</body>
+</html>
