@@ -344,25 +344,25 @@
                                     <tr>
                                         <td style="text-align: center;">아이디</td>
                                         <td>
-                                            <input type="text" name="uid" id="uid" onkeydown="DoReset();">
+                                            <input type="text" name="uid" id="uid" onkeydown="DoReset();" onblur="idCheck();">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: center;">비밀번호</td>
                                         <td>
-                                            <input type="password" name="upw" id="upw" onkeydown="DoReset();">
+                                            <input type="password" name="upw" id="upw" onkeydown="DoReset();" onblur="passCheck();">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: center;">비밀번호 확인</td>
                                         <td>
-                                            <input type="password" name="upwcheck" id="upwcheck" onkeydown="DoReset();">
+                                            <input type="password" name="upwcheck" id="upwcheck" onkeydown="DoReset();" onblur="pwcCheck();">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: center;">이름</td>
                                         <td>
-                                            <input type="text" name="uname" id="uname" onkeydown="DoReset();">
+                                            <input type="text" name="uname" id="uname" onkeydown="DoReset();" onblur="nameCheck();">
                                         </td>
                                     </tr>
                                     <tr>
@@ -373,7 +373,7 @@
                                     </tr>
                                     <tr>
                                         <td style="text-align: center;">이메일</td>
-                                        <td><input type="email" name="uemail" id="uemail" onkeydown="DoReset();"></td>
+                                        <td><input type="email" name="uemail" id="uemail" onkeydown="DoReset();" onblur="mailCheck();"></td>
                                     </tr>
                                     <tr>
                                         <!-- 하나의 값만 선택하게 할 때는 라디오 버튼 사용 -->
